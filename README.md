@@ -1,2 +1,4 @@
 # pythia
 A Python stock price slideshow application that fetches historical data, performs technical analysis with Bollinger Bands and Third Sigma, generates charts, and presents them in a Tkinter-based slideshow.
+
+This script implements a stock price slideshow application Tkinter for the graphical user interface (GUI) and Yahoo Finance API (yfinance) for fetching stock data. The application allows a user to view charts and Bollinger Bands and Third Sigma for a list of predefined stock tickers. The script downloads historical stock data, calculates the necessary technical indicators, generates charts and saves them as images. The images are displayed in a slideshow allowing the user to navigate to the next and previous slides. There's also a play/pause button for automated slideshow progression. The script also provides feedback on teh data generation process, ensuring that the charts are up-to-date and relevant. This script is unfinished.
