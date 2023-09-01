@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 
-import os                                                                   # For interacting with the operating system.
-import yfinance as yf                                                       # Yahoo Finance library for stock data.
-from datetime import datetime, timedelta                                    # For working with dates and times.
-from matplotlib.figure import Figure                                        # For creating figures and charts.
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas # For rendering figures to images.
-import matplotlib.pyplot as plt                                             # For rendering figures to images.
-import tkinter as tk                                                        # For creating graphical user interfaces (GUIs).
-from PIL import ImageTk, Image                                              # Python Imaging Library for image manipulation.
-import tqdm                                                                 # Progress bar library.
+# For interacting with the operating system.
+import os
+# Yahoo Finance library for stock data.
+import yfinance as yf
+# For working with dates and times.
+from datetime import datetime, timedelta
+# For creating figures and charts.
+from matplotlib.figure import Figure
+# For rendering figures to images.
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+# For rendering figures to images.
+import matplotlib.pyplot as plt
+# For creating graphical user interfaces (GUIs).
+import tkinter as tk
+# Python Imaging Library for image manipulation.
+from PIL import ImageTk, Image
+# Progress bar library.
+import tqdm
 
-# Define a class for the stock price slideshow application:
 class Pythia:
+    """Define a class for the stock price slideshow application."""
     def __init__(self, tickers):
         # Initialize the class with a list of tickers (stock symbols):
         self.tickers = tickers
@@ -47,8 +56,8 @@ class Pythia:
         self.window.bind('q', self.quit_slideshow)
         self.window.bind('<Escape>', self.quit_slideshow)
 
-    # Check if data for a given ticker exists and is up-to-date:
     def check_latest_data(self, ticker):
+        """Check if data for a given ticker exists and is up-to-date."""
         data_path = f'graphs/{ticker}.png'
         if os.path.exists(data_path):
             file_timestamp = os.path.getmtime(data_path)
@@ -58,15 +67,17 @@ class Pythia:
                 return True
         return False
 
-    # Check if the stock market is currently open (between 09:30 and 16:00):
     def is_market_open(self):
+        """
+        Check if the stock market is currently open (between 09:30 and 16:00).
+        """
         now = datetime.now().time()
         market_open = datetime.strptime('09:30', '%H:%M').time()
         market_close = datetime.strptime('16:00', '%H:%M').time()
         return market_open <= now <= market_close
 
-    # Download stock data, plot a chart, and save it as an image:
     def get_data_save_plot(self, ticker):
+        """Download stock data, plot a chart, and save it as an image."""
         end_date = datetime.now()
         start_date = end_date - timedelta(days=134)
         data = yf.download(
@@ -171,8 +182,10 @@ class Pythia:
         absolute_distance = abs(data['Close'].iloc[-1] - data['Rolling Mean'].iloc[-1])
         return fig, absolute_distance
 
-    # Generate data and plots for all tickers and sort them by distance:
     def generate_data_and_plots(self):
+        """
+        Generate data and plots for all tickers and sort them by distance.
+        """
         ticker_data = []
         for ticker in tqdm.tqdm(self.tickers):
             output = self.get_data_save_plot(ticker)
@@ -187,8 +200,8 @@ class Pythia:
             print("No images were generated. Exiting the slideshow.")
             self.window.quit()
 
-    # Display an image with the given index (ticker):
     def show_image(self, index):
+        """Display an image with the given index (ticker)."""
         ticker = self.tickers[index]
 
         self.label.config(text='')
@@ -201,28 +214,30 @@ class Pythia:
         self.label.config(image=photo)
         self.label.image = photo
 
-    # Schedule the display of the next image in the slideshow:
     def schedule_next_image(self):
+        """Schedule the display of the next image in the slideshow."""
         if self.is_playing:
             self.next_image_scheduled = self.window.after(5000, self.show_next_image)
 
-    # Show the next image in the slideshow:
     def show_next_image(self):
+        """Show the next image in the slideshow."""
         self.current_image_index += 1
         if self.current_image_index >= len(self.tickers):
             self.current_image_index = 0
         self.show_image(self.current_image_index)
         self.schedule_next_image()
 
-    # Show the previous image in the slideshow:
     def show_previous_image(self):
+        """Show the previous image in the slideshow."""
         self.current_image_index -= 1
         if self.current_image_index < 0:
             self.current_image_index = len(self.tickers) - 1
         self.show_image(self.current_image_index)
 
-    # Toggle between play and pause for the slideshow:
     def toggle_slideshow(self):
+    """
+    Toggle between play and pause for the slideshow.
+    """
         self.is_playing = not self.is_playing
         self.play_pause_button.config(text='Play' if not self.is_playing else 'Pause')
         if self.is_playing:
@@ -230,19 +245,21 @@ class Pythia:
         else:
             self.window.after_cancel(self.next_image_scheduled)
 
-    # Quit the slideshow and close the Tkinter window:
     def quit_slideshow(self, event=None):
+    """Quit the slideshow and close the Tkinter window."""
         self.window.quit()
 
-    # Start the stock price slideshow application:
     def start(self):
+    """Start the stock price slideshow application."""
         self.generate_data_and_plots()
         self.show_image(self.current_image_index)
         self.schedule_next_image()
         self.window.mainloop()
 
-# Main function to run the stock price slideshow application:
 def main():
+    """
+    Main function to run the stock price slideshow application.
+    """
     # List of tickers (stock symbols) to display in the slideshow:
     tickers = ['AAPL', 'AMGN', 'AXP', 'BA', 'CAT', 'CRM',
                'CSCO', 'CVX', 'DOW', 'DIS', 'HD', 'HON',
@@ -257,4 +274,3 @@ def main():
 # Run the main function if the script is executed directly:
 if __name__ == '__main__':
     main()
-
