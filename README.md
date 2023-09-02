@@ -46,7 +46,7 @@ Press q to quit.
 
 ## Configuration
 
-You can customize the list of tickers to be displayed in the slideshow by modifying the tickers list in the main function of the slideshow_app.py script.
+You can customize the list of tickers to be displayed in the slideshow by modifying the tickers list in the main function of the pythia.py script.
 
 ## Contribution
 
