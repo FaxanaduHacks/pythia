@@ -45,6 +45,16 @@ brew install python-tk@3.14
 - Keyboard shortcut (`q`) to quit.
 - Simple progress indicator during data preparation.
 
+## Demo
+
+An arbitrary ticker plot from the slideshow (AMZN):
+
+<img src="AMZN.png" alt="Example plot containing the 134 day historical data with Bollinger bands and Third-Sigma lines." width="300"/>
+
+Another arbitrary ticker plot from the slideshow (AMGN):
+
+<img src="AMGN.png" alt="Example plot containing the 134 day historical data with Bollinger bands and Third-Sigma lines." width="300"/>
+
 ## Usage
 
 1. Clone this repository or download the source code.
