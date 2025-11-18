@@ -1,44 +1,63 @@
 # pythia
 
-A Python stock price slideshow application that fetches historical data, performs technical analysis with Bollinger Bands and Third Sigma, generates charts, and presents them in a Tkinter-based slideshow.
+A Python-based stock price slideshow application that retrieves historical data, computes Bollinger Bands and third-sigma ranges, generates charts, and displays them using a Tkinter slideshow interface.
 
-This script implements a stock price slideshow application Tkinter for the graphical user interface (GUI) and Yahoo Finance API (yfinance) for fetching stock data. The application allows a user to view charts and Bollinger Bands and Third Sigma for a list of predefined stock tickers. The script downloads historical stock data, calculates the necessary technical indicators, generates charts and saves them as images. 
+This program uses Tkinter for the graphical user interface (GUI) and the Yahoo Finance API (`yfinance`) for data acquisition. For each predefined ticker, it downloads historical price data, computes technical indicators, renders annotated charts, and stores them as images. The resulting charts can be navigated manually or viewed through an automated slideshow.
 
-The images are displayed in a slideshow allowing the user to navigate to the next and previous slides. There's also a play/pause button for automated slideshow progression. The script also provides feedback on teh data generation process, ensuring that the charts are up-to-date and relevant.
+The application includes forward/back navigation, a play/pause toggle, and status feedback during data generation. It ensures that cached charts are refreshed when out of date.
 
-This script is unfinished. It performs a technical analysis on historical data only. The **Buy** and **Sell** markers are just for demonstrations purposes and are drawn on historical data: they are not an indicator of when to actually buy and sell the stocks. This is for educational use only, but if you figure out how to make millions with it, you could buy me a Winnebago or something.
+This program is unfinished and performs technical analysis on historical data only. The **Buy** and **Sell** markers are demonstrative overlays applied to historical prices; they do not provide trading signals. This software is for educational purposes only; though if you manage to turn it into a fortune, feel free to buy me a Winnebago.
 
 ## Prerequisites
 
-Before running the program, make sure you have the following prerequisites:
+Ensure the following components are installed:
 
-- Python 3.x
-- The following Python libraries: `os`, `yfinance`, `datetime`, `matplotlib`, `tkinter`, `PIL`, `tqdm`
+- Python 3.x **with Tcl/Tk support** (required for Tkinter)
+- `pandas`
+- `yfinance`
+- `matplotlib`
+- `Pillow`
 
-You can install the required libraries using the following command:
+Install Python dependencies with:
 
 ```bash
-pip install yfinance matplotlib pillow tqdm
+pip install pandas yfinance matplotlib Pillow
+```
+
+If using macOS with Homebrew, ensure Tk is installed first:
+
+```bash
+brew install tcl-tk
+```
+
+Then install Python with Tk support:
+
+```bash
+brew install python-tk@3.14
 ```
 
 ## Features
 
-
+- Automated retrieval of historical price data.
+- Computation of Bollinger Bands and third-sigma envelopes.
+- Chart generation and caching to avoid redundant downloads.
+- Tkinter-based slideshow with manual and automatic navigation.
+- Keyboard shortcut (`q`) to quit.
+- Simple progress indicator during data preparation.
 
 ## Usage
 
 1. Clone this repository or download the source code.
-2. Open a terminal and navigate to the directory containing the downloaded code.
-3. Run the following command to execute the program:
+2. Open a terminal and navigate to the directory.
+3. Run the program:
 
 ```bash
 python pythia.py
 ```
 
-Note: the program will create a directory named **graphs** for storing the
-plot images.
+The program will create a directory named `graphs` to store generated chart images.
 
-While the script is running:
+During execution:
 
 ```
 Press q to quit.
@@ -46,16 +65,16 @@ Press q to quit.
 
 ## Configuration
 
-You can customize the list of tickers to be displayed in the slideshow by modifying the tickers list in the main function of the pythia.py script.
+Modify the ticker list in the `main()` function of `pythia.py` to customize which symbols appear in the slideshow.
 
 ## Contribution
 
-Contributions to this project are welcome! If you encounter any issues, have ideas for improvements, or want to add new features, feel free to submit a pull request or open an issue.
+Contributions to this project are welcome. If you find issues or have suggestions for improvements or new features, submit a pull request or open an issue.
 
 ## License
 
-This barcode scanner is open-source and licensed under the MIT License. See the LICENSE file for more details.
+This project is released under the MIT License. See the `LICENSE` file for more details.
 
 ## Acknowledgments
 
-The development of this application benefited from the assistance of language models, including GPT-3.5 and GPT-4, provided by OpenAI. The author acknowledges the valuable contributions made by these language models in generating design ideas and providing insights during the development process.
+The development of the first version of this application benefited from the assistance of language models, including GPT-3.5 and GPT-4, provided by OpenAI. The author acknowledges the valuable contributions made by these language models in generating design ideas and providing insights during the development process.
